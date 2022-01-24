@@ -1,3 +1,4 @@
+import 'package:dipoly/animation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -10,8 +11,8 @@ class DicePage extends StatefulWidget {
 
 class _DicePageState extends State<DicePage> {
   //default die values
-  int leftDiceValue = 1;
-  int rightDiceValue = 2;
+  int _leftDiceValue = 1;
+  int _rightDiceValue = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +28,19 @@ class _DicePageState extends State<DicePage> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  leftDiceValue = math.Random().nextInt(6) + 1;
-                  rightDiceValue = math.Random().nextInt(6) + 1;
+                  _leftDiceValue = math.Random().nextInt(6) + 1;
+                  _rightDiceValue = math.Random().nextInt(6) + 1;
                 });
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image(
-                      image: AssetImage('asset/dice$leftDiceValue.png'),
+                      image: AssetImage('asset/dice$_leftDiceValue.png'),
                       width: 150,
                       height: 150),
                   Image(
-                    image: AssetImage('asset/dice$rightDiceValue.png'),
+                    image: AssetImage('asset/dice$_rightDiceValue.png'),
                     width: 150,
                     height: 150,
                   ),

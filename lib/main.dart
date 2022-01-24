@@ -1,3 +1,4 @@
+import 'package:dipoly/animation.dart';
 import 'package:dipoly/dice.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class DipolyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const DicePage(),
+      home: const AnimationPage(),
     );
   }
 }
