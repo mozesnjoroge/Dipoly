@@ -1,6 +1,5 @@
 import 'package:dipoly/dice.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
 
 class AnimationPage extends StatefulWidget {
@@ -12,6 +11,7 @@ class AnimationPage extends StatefulWidget {
 
 class _AnimationPageState extends State<AnimationPage>
     with SingleTickerProviderStateMixin {
+
   AnimationController? _animationController;
   Animation<double>? animation;
   int _leftDiceValue = 1;
@@ -23,12 +23,12 @@ class _AnimationPageState extends State<AnimationPage>
     super.initState();
     _animationController =
         AnimationController(duration: const Duration(seconds: 3), vsync: this);
-    // _animationController?.forward();
+    /*TODO: set bouncing in function, different duration for individual bouncing effect*/
 
     final curvedAnimation = CurvedAnimation(
-        parent: _animationController!,
-        curve: Curves.bounceIn,
-        reverseCurve: Curves.easeOut,
+      parent: _animationController!,
+      curve: Curves.bounceIn,
+      reverseCurve: Curves.easeOut,
     );
 
     animation = Tween<double>(
@@ -38,7 +38,7 @@ class _AnimationPageState extends State<AnimationPage>
     ).animate(curvedAnimation)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-         _animationController!.forward();
+          _animationController!.forward();
         } else if (status == AnimationStatus.forward) {
           //TODO disable the gesture detector
         }
@@ -47,7 +47,7 @@ class _AnimationPageState extends State<AnimationPage>
 
   @override
   Widget build(BuildContext context) {
-    //TODO return the dice along with its value as a widget
+
     return Scaffold(
       backgroundColor: Colors.red,
       appBar: AppBar(
@@ -61,21 +61,13 @@ class _AnimationPageState extends State<AnimationPage>
               onTap: () {
                 if (animation!.isDismissed) {
                   _animationController!.forward();
-                  setState(() {
-                    _leftDiceValue = math.Random().nextInt(6) + 1;
-                    _rightDiceValue = math.Random().nextInt(6) + 1;
-                  });
-                } else if(animation!.status == AnimationStatus.completed){
+                  _diceValueSetter();
+                } else if (animation!.status == AnimationStatus.completed) {
                   //TODO: enable tap functionality
                   _animationController!.reverse();
-                  setState(() {
-                    _leftDiceValue = math.Random().nextInt(6) + 1;
-                    _rightDiceValue = math.Random().nextInt(6) + 1;
-                  });
+                  _diceValueSetter();
                 }
-                // _animationController!.stop();
-
-
+                
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -104,6 +96,13 @@ class _AnimationPageState extends State<AnimationPage>
       // RotatingTransition(
       //     rotatingWidget: const DicePage(), rotationAngle: animation!),
     );
+
+  }
+  void _diceValueSetter(){
+    setState(() {
+      _leftDiceValue = math.Random().nextInt(6) + 1;
+      _rightDiceValue = math.Random().nextInt(6) + 1;
+    });
   }
 
   @override
