@@ -28,7 +28,8 @@ class _AnimationPageState extends State<AnimationPage>
     final curvedAnimation = CurvedAnimation(
         parent: _animationController!,
         curve: Curves.bounceIn,
-        reverseCurve: Curves.easeOut);
+        reverseCurve: Curves.easeOut,
+    );
 
     animation = Tween<double>(
       begin: 0,
@@ -37,7 +38,7 @@ class _AnimationPageState extends State<AnimationPage>
     ).animate(curvedAnimation)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          //TODO enable the gesture detector
+         _animationController!.forward();
         } else if (status == AnimationStatus.forward) {
           //TODO disable the gesture detector
         }
@@ -58,46 +59,53 @@ class _AnimationPageState extends State<AnimationPage>
           Expanded(
             child: GestureDetector(
               onTap: () {
-                if(animation!.isCompleted){
-                  _animationController!.stop();
-                }else if(_animationController!.isDismissed){
+                if (animation!.isDismissed) {
                   _animationController!.forward();
+                  setState(() {
+                    _leftDiceValue = math.Random().nextInt(6) + 1;
+                    _rightDiceValue = math.Random().nextInt(6) + 1;
+                  });
+                } else if(animation!.status == AnimationStatus.completed){
+                  //TODO: enable tap functionality
+                  _animationController!.reverse();
+                  setState(() {
+                    _leftDiceValue = math.Random().nextInt(6) + 1;
+                    _rightDiceValue = math.Random().nextInt(6) + 1;
+                  });
                 }
+                // _animationController!.stop();
 
-
-
-                setState(() {
-                  _leftDiceValue = math.Random().nextInt(6) + 1;
-                  _rightDiceValue = math.Random().nextInt(6) + 1;
-                }
-                );
 
               },
-              child: RotatingTransition(
-                rotationAngle: animation!,
-                rotatingWidget: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  RotatingTransition(
+                    rotationAngle: animation!,
+                    rotatingWidget: Image(
                         image: AssetImage('asset/dice$_leftDiceValue.png'),
                         width: 150,
                         height: 150),
-                    Image(
+                  ),
+                  RotatingTransition(
+                    rotationAngle: animation!,
+                    rotatingWidget: Image(
                       image: AssetImage('asset/dice$_rightDiceValue.png'),
                       width: 150,
                       height: 150,
                     ),
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
       // RotatingTransition(
       //     rotatingWidget: const DicePage(), rotationAngle: animation!),
     );
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -123,7 +131,6 @@ class RotatingTransition extends StatelessWidget {
               angle: rotationAngle!.value, child: rotatingWidget);
         });
   }
-
 }
 
 //TODO: init state to have a random roll
