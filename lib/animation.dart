@@ -13,8 +13,9 @@ class AnimationPage extends StatefulWidget {
 
 class _AnimationPageState extends State<AnimationPage>
     with TickerProviderStateMixin {
-  int _leftDiceValue = 1;
-  int _rightDiceValue = 2;
+  int? _leftDiceValue;
+
+  int? _rightDiceValue;
 
   late final AnimationController _animationController = AnimationController(
       duration: const Duration(seconds: 3),
@@ -55,6 +56,8 @@ class _AnimationPageState extends State<AnimationPage>
   void initState() {
     super.initState();
     _bounceAnimController.forward();
+    _animationController.forward();
+    _diceValueSetter();
   }
 
   @override
@@ -116,11 +119,16 @@ class _AnimationPageState extends State<AnimationPage>
     );
   }
 
-  void _diceValueSetter() {
-    setState(() {
-      _leftDiceValue = math.Random().nextInt(6) + 1;
-      _rightDiceValue = math.Random().nextInt(6) + 1;
-    });
+  void _diceValueSetter() async {
+    await Future.delayed(
+      const Duration(seconds: 3),
+      () => setState(
+        () {
+          _leftDiceValue = math.Random().nextInt(6) + 1;
+          _rightDiceValue = math.Random().nextInt(6) + 1;
+        },
+      ),
+    );
   }
 
   @override
