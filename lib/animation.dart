@@ -14,7 +14,6 @@ class AnimationPage extends StatefulWidget {
 class _AnimationPageState extends State<AnimationPage>
     with TickerProviderStateMixin {
   int? _leftDiceValue;
-
   int? _rightDiceValue;
 
   late final AnimationController _animationController = AnimationController(
@@ -43,7 +42,7 @@ class _AnimationPageState extends State<AnimationPage>
 
   late final Animation<AlignmentGeometry> _bounceAnimation =
       Tween<AlignmentGeometry>(
-    begin: Alignment.centerLeft,
+    begin: Alignment.topCenter,
     end: Alignment.center,
   ).animate(
     CurvedAnimation(
@@ -75,9 +74,10 @@ class _AnimationPageState extends State<AnimationPage>
           const SizedBox(
             height: 100.0,
           ),
-          GameLogo(
-            alignmentAnimation: _bounceAnimation,
-          ),
+           GameLogo(
+              alignmentAnimation: _bounceAnimation,
+            ),
+
           Expanded(
             child: GestureDetector(
               onTap: () {
@@ -95,7 +95,7 @@ class _AnimationPageState extends State<AnimationPage>
                     rotationAngle: _animation!,
                     rotatingWidget: Image(
                         image: AssetImage(
-                            'asset/die_images/dice${_leftDiceValue??1}.png'),
+                            'asset/die_images/dice${_leftDiceValue ??0}.png'),
                         width: 150,
                         height: 150),
                   ),
@@ -103,7 +103,7 @@ class _AnimationPageState extends State<AnimationPage>
                     rotationAngle: _animation!,
                     rotatingWidget: Image(
                       image: AssetImage(
-                          'asset/die_images/dice${_rightDiceValue??1}.png'),
+                          'asset/die_images/dice${_rightDiceValue ??0}.png'),
                       width: 150,
                       height: 150,
                     ),
@@ -114,8 +114,6 @@ class _AnimationPageState extends State<AnimationPage>
           ),
         ],
       ),
-      // RotatingTransition(
-      //     rotatingWidget: const DicePage(), rotationAngle: animation!),
     );
   }
 
@@ -133,11 +131,10 @@ class _AnimationPageState extends State<AnimationPage>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _animationController.dispose();
     _bounceAnimController.dispose();
     super.dispose();
   }
 }
 
-//TODO: init state to have a random roll
+//TODO: Create a diceValueResetter() to reset value to 0 or placeholder value

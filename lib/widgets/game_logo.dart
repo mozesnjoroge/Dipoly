@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class GameLogo extends StatelessWidget {
   final Animation<AlignmentGeometry>? alignmentAnimation;
 
-  const GameLogo({this.alignmentAnimation});
+  GameLogo({this.alignmentAnimation});
+
+  static String logoAssetName = 'asset/game_logo/rich_uncle.svg';
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +14,17 @@ class GameLogo extends StatelessWidget {
       color: Colors.red,
       child: AlignTransition(
         alignment: alignmentAnimation!,
-        child: const Padding(
-          padding: EdgeInsets.only(left: 15.0, right: 15.0),
-          child: FlutterLogo(
-            size: 150.0,
-          ),
-        ),
+        child: Padding(
+            padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+            child:
+                // FlutterLogo(
+                //   size: 150.0,
+                // )
+                SvgPicture.asset(
+              logoAssetName,
+              color: Colors.white,
+              height: 100.0,
+            )),
       ),
     );
   }
