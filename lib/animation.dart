@@ -18,8 +18,8 @@ class _AnimationPageState extends State<AnimationPage>
   int? _rightDiceValue;
 
   late final AnimationController _animationController = AnimationController(
-      duration: const Duration(seconds: 3),
-      reverseDuration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 2),
+      reverseDuration: const Duration(seconds: 2),
       vsync: this);
 
   late final Animation<double>? _animation = Tween<double>(
@@ -95,7 +95,7 @@ class _AnimationPageState extends State<AnimationPage>
                     rotationAngle: _animation!,
                     rotatingWidget: Image(
                         image: AssetImage(
-                            'asset/die_images/dice$_leftDiceValue.png'),
+                            'asset/die_images/dice${_leftDiceValue??1}.png'),
                         width: 150,
                         height: 150),
                   ),
@@ -103,7 +103,7 @@ class _AnimationPageState extends State<AnimationPage>
                     rotationAngle: _animation!,
                     rotatingWidget: Image(
                       image: AssetImage(
-                          'asset/die_images/dice$_rightDiceValue.png'),
+                          'asset/die_images/dice${_rightDiceValue??1}.png'),
                       width: 150,
                       height: 150,
                     ),
@@ -121,7 +121,7 @@ class _AnimationPageState extends State<AnimationPage>
 
   void _diceValueSetter() async {
     await Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       () => setState(
         () {
           _leftDiceValue = math.Random().nextInt(6) + 1;
