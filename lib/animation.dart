@@ -86,7 +86,7 @@ class _AnimationPageState extends State<AnimationPage>
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: const [
           Icon(
-            Icons.check,
+            Icons.check,  
             color: Colors.white,
           ),
           SizedBox(width: 5.0),

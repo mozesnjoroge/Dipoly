@@ -30,7 +30,7 @@ dev_dependencies:
   flutter_native_splash: ^2.0.1+1
 
 flutter_native_splash:
-  image: asset/die_images/dice6.png
+  image: asset/game_logo/splashlogo.png
   color: "#ffffff"
   color_dark: "#1a1a1a"
   android: true
