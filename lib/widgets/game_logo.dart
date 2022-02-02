@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class GameLogo extends StatelessWidget {
-  final Animation<AlignmentGeometry>? alignmentAnimation;
+  final Animation<double>? logoFadeAnimation;
 
-  GameLogo({this.alignmentAnimation});
+  GameLogo({this.logoFadeAnimation});
 
   static String logoAssetName = 'asset/game_logo/rich_uncle.svg';
 
@@ -12,8 +12,8 @@ class GameLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.red,
-      child: AlignTransition(
-        alignment: alignmentAnimation!,
+      child: FadeTransition(
+        opacity: logoFadeAnimation!,
         child: Padding(
             padding: const EdgeInsets.only(left: 25.0, right: 25.0),
             child:

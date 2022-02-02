@@ -19,12 +19,22 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.0.3
+  fluttertoast: ^8.0.8
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^1.0.0
+  flutter_native_splash: ^2.0.1+1
+
+flutter_native_splash:
+  image: asset/die_images/dice6.png
+  color: "#ffffff"
+  color_dark: "#1a1a1a"
+  android: true
+  ios: true
 
 
 # The following section is specific to Flutter.
